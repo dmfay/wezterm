@@ -12,7 +12,7 @@ case $OSTYPE in
     ;;
 
   linux*)
-    wezterm start -- script -t$NOW.timing $NOW.typescript
+    wezterm start -- script -t $NOW.timing $NOW.typescript
     tar -cz --remove-files -f $NOW.tgz $NOW.timing $NOW.typescript
     ;;
 esac
