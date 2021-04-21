@@ -38,6 +38,15 @@ struct Opt {
     )]
     config_file: Option<OsString>,
 
+    /// Execute a command
+    #[structopt(
+        name = "command",
+        short = "e",
+        value_delimiter = " ",
+        parse(from_os_str),
+    )]
+    prog: Vec<OsString>,
+
     /// Override specific configuration values
     #[structopt(
         long = "config",

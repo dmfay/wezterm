@@ -59,6 +59,15 @@ struct Opt {
     )]
     config_file: Option<OsString>,
 
+    /// Execute a command
+    #[structopt(
+        name = "command",
+        short = "e",
+        value_delimiter = " ",
+        parse(from_os_str),
+    )]
+    prog: Vec<OsString>,
+
     /// Override specific configuration values
     #[structopt(
         long = "config",
@@ -530,7 +539,10 @@ fn run() -> anyhow::Result<()> {
         .cmd
         .as_ref()
         .cloned()
-        .unwrap_or_else(|| SubCommand::Start(StartCommand::default()))
+        .unwrap_or_else(|| SubCommand::Start(StartCommand{
+            prog: opts.prog.clone(),
+            ..Default::default()
+        }))
     {
         SubCommand::Start(start) => {
             log::trace!("Using configuration: {:#?}\nopts: {:#?}", config, opts);
